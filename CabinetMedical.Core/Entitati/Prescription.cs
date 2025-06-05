@@ -15,5 +15,8 @@ namespace CabinetMedical.Core.Entitati
         public Doctor Doctor { get; set; } = new Doctor();
         public Patient Patient { get; set; } = new Patient();
         public  string Notes { get; set; } = string.Empty;
+
+        public string DoctorName => $"{Doctor.FirstName} {Doctor.LastName}";
+        public string PatientName => $"{Patient.FirstName} {Patient.LastName}";
     }
 }
