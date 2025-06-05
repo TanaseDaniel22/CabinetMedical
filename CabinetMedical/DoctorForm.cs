@@ -30,10 +30,10 @@ namespace CabinetMedical
             // ===========================================================
             // Cream o  noua instanata a repository-ului
             _repo = new DoctorRepository();
-           
+
         }
-    }
-}
+
+
 
         // ============================================================
         // Eveniment Load al formularului
@@ -94,43 +94,43 @@ namespace CabinetMedical
         // Se declanseaza cand utilizatorul apasa butonul "Edit"
         // ============================================================
         private void btnEdit_Click(object sender, EventArgs e)
-{
-    //1. Verificam daca s-a selectat un doctor in DataGridView
-    if (dgvDoctors.CurrentRow == null)
-    {
-        // Daca nu s-a selectat nimic, afisam un mesaj de eroare
-        MessageBox.Show("Selectati un doctor pentru a-l edita.", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return;
-    }
-    // Iesim din metoda
-    // 2. Preluam obiectul Doctor asociat cu linia selectata
-    // DataBoundItem contine obiectul din List<Doctor> care a fost pus ca Data Source.
-    var selected = dgvDoctors.CurrentRow.DataBoundItem as Doctor;
-    if (selected == null)
-    {
-        // Daca nu s-a putut face conversia, afisam un mesaj de eroare
-        MessageBox.Show("Selectati un doctor valid pentru a-l edita.", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return; // Iesim din metoda
-    }
-    // 3. Cream un nou formular-mic (dialog) pentru a edita datele doctorului, trimitand constructorului obiectul existent.
-    // in DoctorEditForm, (Doctor Existing) codul cloneaza acest obiect, ca sa nu modificam direct instanta originala pana la confirmare
-    using (var dlg = new DoctorEditForm(selected))
-    {
-        // 4. Afisam dialogul si asteptam rezultatul :
-        if (dlg.ShowDialog() == DialogResult.OK)
-        { // 5. Daca utilizatorul a apasat OK, actualizam doctorul in repository
-            _repo.Update(dlg.Doctor);
-            // 6. Reimprospatam DataGridView-ul pentru a afisa modificarile
-            RefreshGrid();
-            // 7. Afișăm un mesaj de succes
-            MessageBox.Show("Doctor actualizat cu succes!", "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            // 8. Resetam formularul de editare pentru a putea edita alti doctori
-            dlg.ResetForm();
-            // 9. Focus pe butonul Edit pentru a putea edita alti doctori rapid
-            btnEdit.Focus();
+        {
+            //1. Verificam daca s-a selectat un doctor in DataGridView
+            if (dgvDoctors.CurrentRow == null)
+            {
+                // Daca nu s-a selectat nimic, afisam un mesaj de eroare
+                MessageBox.Show("Selectati un doctor pentru a-l edita.", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            // Iesim din metoda
+            // 2. Preluam obiectul Doctor asociat cu linia selectata
+            // DataBoundItem contine obiectul din List<Doctor> care a fost pus ca Data Source.
+            var selected = dgvDoctors.CurrentRow.DataBoundItem as Doctor;
+            if (selected == null)
+            {
+                // Daca nu s-a putut face conversia, afisam un mesaj de eroare
+                MessageBox.Show("Selectati un doctor valid pentru a-l edita.", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Iesim din metoda
+            }
+            // 3. Cream un nou formular-mic (dialog) pentru a edita datele doctorului, trimitand constructorului obiectul existent.
+            // in DoctorEditForm, (Doctor Existing) codul cloneaza acest obiect, ca sa nu modificam direct instanta originala pana la confirmare
+            using (var dlg = new DoctorEditForm(selected))
+            {
+                // 4. Afisam dialogul si asteptam rezultatul :
+                if (dlg.ShowDialog() == DialogResult.OK)
+                { // 5. Daca utilizatorul a apasat OK, actualizam doctorul in repository
+                    _repo.Update(dlg.Doctor);
+                    // 6. Reimprospatam DataGridView-ul pentru a afisa modificarile
+                    RefreshGrid();
+                    // 7. Afișăm un mesaj de succes
+                    MessageBox.Show("Doctor actualizat cu succes!", "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // 8. Resetam formularul de editare pentru a putea edita alti doctori
+                    dlg.ResetForm();
+                    // 9. Focus pe butonul Edit pentru a putea edita alti doctori rapid
+                    btnEdit.Focus();
+                }
+            }
         }
-    }
-}
         // 10. Daca utilizatorul a apasat Cancel, nu se intampla nimic.
 
         // ============================================================
@@ -145,33 +145,33 @@ namespace CabinetMedical
                 MessageBox.Show("Selectati un doctor pentru a-l sterge.", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-                // Iesim din metoda
+            // Iesim din metoda
 
-                // 2. Preluam obiectul Doctor asociat cu linia selectata
-                var selected = dgvDoctors.CurrentRow.DataBoundItem as Doctor;
-                if (selected == null)
-    {
-        return; // Daca nu s-a putut face conversia, iesim din metoda
-    }
-    // daca legarea nu a mers, nu stergem
-    // ============================================================
-    // 2. Verificam daca doctorul are prescriptii asociate
-    if (selected.Prescriptions != null && selected.Prescriptions.Any())
-    {
-        // Daca are, afisam un mesaj de eroare
-        MessageBox.Show("Nu puteti sterge un doctor care are prescriptii asociate.", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return; // Iesim din metoda
-    }
-    else
-    {
-        // 3. Daca nu are prescriptii, continuam cu stergerea:
+            // 2. Preluam obiectul Doctor asociat cu linia selectata
+            var selected = dgvDoctors.CurrentRow.DataBoundItem as Doctor;
+            if (selected == null)
+            {
+                return; // Daca nu s-a putut face conversia, iesim din metoda
+            }
+            // daca legarea nu a mers, nu stergem
+            // ============================================================
+            // 2. Verificam daca doctorul are prescriptii asociate
+            if (selected.Prescriptions != null && selected.Prescriptions.Any())
+            {
+                // Daca are, afisam un mesaj de eroare
+                MessageBox.Show("Nu puteti sterge un doctor care are prescriptii asociate.", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Iesim din metoda
+            }
+            else
+            {
+                // 3. Daca nu are prescriptii, continuam cu stergerea:
 
-        // 3. Confirmam stergerea cu un MessageBox: MessageBox cu butoane Yes/No si iconita Warning.
-        var confirm = MessageBox.Show(
-                    $"Sunteti sigur ca doriti sa stergeti doctorul {selected.FirstName} {selected.LastName}?",
-                    "Confirmare Stergere",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
+                // 3. Confirmam stergerea cu un MessageBox: MessageBox cu butoane Yes/No si iconita Warning.
+                var confirm = MessageBox.Show(
+                            $"Sunteti sigur ca doriti sa stergeti doctorul {selected.FirstName} {selected.LastName}?",
+                            "Confirmare Stergere",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Warning);
 
                 // 4. Daca utilizatorul a apasat Yes, stergem doctorul din repository
                 if (confirm == DialogResult.Yes)
@@ -189,3 +189,4 @@ namespace CabinetMedical
             }
         }
     }
+}

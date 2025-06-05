@@ -32,6 +32,7 @@
             btnEdit = new Button();
             btnDelete = new Button();
             dgvDoctors = new DataGridView();
+            ID = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvDoctors).BeginInit();
             SuspendLayout();
             // 
@@ -45,6 +46,7 @@
             btnAdd.TabIndex = 0;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
@@ -56,6 +58,7 @@
             btnEdit.TabIndex = 1;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = false;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
@@ -67,6 +70,7 @@
             btnDelete.TabIndex = 2;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // dgvDoctors
             // 
@@ -74,6 +78,7 @@
             dgvDoctors.AllowUserToOrderColumns = true;
             dgvDoctors.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvDoctors.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDoctors.Columns.AddRange(new DataGridViewColumn[] { ID });
             dgvDoctors.Dock = DockStyle.Top;
             dgvDoctors.Location = new Point(0, 0);
             dgvDoctors.Name = "dgvDoctors";
@@ -81,6 +86,12 @@
             dgvDoctors.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDoctors.Size = new Size(800, 332);
             dgvDoctors.TabIndex = 3;
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.Name = "ID";
+            ID.ReadOnly = true;
             // 
             // DoctorForm
             // 
@@ -104,5 +115,6 @@
         private Button btnEdit;
         private Button btnDelete;
         private DataGridView dgvDoctors;
+        private DataGridViewTextBoxColumn ID;
     }
 }
